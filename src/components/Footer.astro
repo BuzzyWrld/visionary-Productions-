@@ -1,18 +1,20 @@
 ---
-// Community line, IG, location, copyright. The right column link changes per
-// page via the `homeLink` prop (true shows Home, false shows Inquire).
+// Community line plus the full set of destinations. With the nav stripped to
+// logo + Inquire, the footer is where every page stays reachable, so a visitor
+// deep in a gallery is never stuck. `homeLink` is accepted for compatibility.
 interface Props {
   homeLink?: boolean;
 }
-const { homeLink = false } = Astro.props;
 ---
 <footer>
   <div class="foot-top">
     <div class="foot-line reveal">Keep creating visions for the community.</div>
     <div class="foot-links reveal">
+      <a href="/portfolio">Work</a><br />
+      <a href="/services">Services &amp; Pricing</a><br />
+      <a href="/contact">Inquire</a><br />
       <a href="https://instagram.com/kai_photoproductions">@kai_photoproductions</a><br />
-      NEW YORK CITY<br />
-      {homeLink ? <a href="/">Home</a> : <a href="/contact">Inquire</a>}
+      NEW YORK CITY
     </div>
   </div>
   <div class="foot-bottom">

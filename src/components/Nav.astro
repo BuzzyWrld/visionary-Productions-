@@ -1,17 +1,13 @@
 ---
 import Logo from './Logo.astro';
 
-// `active` highlights the current section in the nav. Pass one of the keys.
+// Minimal nav. The logo always returns home, one accented Inquire button is the
+// only persistent action. Work and Services are reached from the home page and
+// the footer, so no link row clutters the bar. The `active` prop is accepted for
+// backward compatibility but no longer renders a link state.
 interface Props {
   active?: 'work' | 'services' | 'pricing' | null;
 }
-const { active = null } = Astro.props;
-
-const links = [
-  { key: 'work', label: 'Work', href: '/portfolio' },
-  { key: 'services', label: 'Services', href: '/services' },
-  { key: 'pricing', label: 'Pricing', href: '/pricing' },
-] as const;
 ---
 <nav class="nav">
   <a class="brand" href="/" aria-label="Visionary Productions home">
@@ -19,10 +15,6 @@ const links = [
     <span><div class="wm">VISIONARY</div><div class="sub">PRODUCTIONS</div></span>
   </a>
   <div class="navlinks">
-    {links.map((l) => (
-      <a class={active === l.key ? 'active' : undefined} href={l.href}>{l.label}</a>
-    ))}
     <a class="inquire" href="/contact">Inquire</a>
-    <button class="toggle" id="themeToggle" aria-label="Toggle light or dark">&#9681;</button>
   </div>
 </nav>

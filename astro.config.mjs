@@ -1,21 +1,18 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel';
+import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 
-// Static first. The contact endpoint opts into on demand rendering with
-// `export const prerender = false`, so we run on the Vercel adapter while
-// every page stays pre rendered and fast.
+// Static first, hosted on Railway as a Node server. The standalone Node adapter
+// builds an HTTP server (dist/server/entry.mjs) that serves the prerendered
+// pages and runs the one on demand route (the contact endpoint).
 export default defineConfig({
   site: 'https://visionaryproductions.nyc',
   output: 'static',
-  adapter: vercel({
-    webAnalytics: { enabled: true },
-    imageService: true,
-  }),
+  adapter: node({ mode: 'standalone' }),
   integrations: [sitemap()],
-  image: {
-    // Allow the Astro image pipeline to optimize local photos to WebP.
-    domains: [],
+  // Services and pricing now live on one page. Keep the old path working.
+  redirects: {
+    '/pricing': '/services',
   },
 });

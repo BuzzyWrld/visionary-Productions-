@@ -6,15 +6,18 @@
   "description": "Visionary Productions. NYC editorial, event, and lifestyle photography by Kai. Executing visions by the day.",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "start": "node ./dist/server/entry.mjs",
     "astro": "astro"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
-    "astro": "^5.5.0",
-    "@astrojs/vercel": "^8.1.0",
+    "@astrojs/node": "^9.5.5",
     "@astrojs/sitemap": "^3.3.0",
+    "astro": "^5.5.0",
     "gsap": "^3.13.0",
     "lenis": "^1.1.18",
     "split-type": "^0.3.4"

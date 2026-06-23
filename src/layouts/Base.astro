@@ -24,22 +24,17 @@ const {
 } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <SEO title={title} description={description} image={image} jsonLd={jsonLd} />
 
-  <!-- Apply the saved theme before first paint to avoid a flash. -->
+  <!-- Drop the no-js flag so reveals are not left hidden when JS runs.
+       The site is dark only, set via data-theme on the html element. -->
   <script is:inline>
-    (function () {
-      document.documentElement.classList.remove('no-js');
-      try {
-        var t = localStorage.getItem('vp_theme');
-        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-      } catch (e) { /* storage blocked, fall back to system */ }
-    })();
+    document.documentElement.classList.remove('no-js');
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />

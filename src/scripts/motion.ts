@@ -10,22 +10,6 @@ const PREFERS_REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IS_MOBILE = matchMedia('(max-width: 760px)').matches;
 const INTRO_FLAG = 'vp_intro_seen';
 
-function setupThemeToggle() {
-  const root = document.documentElement;
-  const toggle = document.getElementById('themeToggle');
-  if (!toggle) return;
-  toggle.addEventListener('click', () => {
-    const cur = root.getAttribute('data-theme');
-    const sysDark = matchMedia('(prefers-color-scheme: dark)').matches;
-    let next: 'light' | 'dark';
-    if (cur === 'dark') next = 'light';
-    else if (cur === 'light') next = 'dark';
-    else next = sysDark ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('vp_theme', next); } catch { /* storage blocked */ }
-  });
-}
-
 function showAllReveals() {
   document.querySelectorAll<HTMLElement>('.reveal').forEach((el) => { el.style.opacity = '1'; });
 }
@@ -70,8 +54,6 @@ function runIntro(onDone: () => void): boolean {
 }
 
 function init() {
-  setupThemeToggle();
-
   if (PREFERS_REDUCED) {
     showAllReveals();
     const intro = document.getElementById('intro');
