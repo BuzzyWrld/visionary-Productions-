@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/content.css';
+
+const title = 'Services | Visionary Productions, NYC Photographer';
+const description =
+  'What Kai shoots: events, fashion and editorial, lifestyle. NYC event photographer, editorial portraits, and lifestyle sessions. Executing visions by the day.';
+
+const services = [
+  { k: 'The Night', h: 'Events', p: 'The room, the energy, the people. I shoot the night so it still feels like the night when you look back. Parties, shows, launches, the community out in full.' },
+  { k: 'The Look', h: 'Fashion & Editorial', p: 'Portraits and stories with intention. Brand work, lookbooks, editorial sets. Same style every time, on purpose, so nobody walks away looking like anybody else.' },
+  { k: 'The Everyday', h: 'Lifestyle', p: 'Real moments, golden hour, the everyday made to matter. Personal sessions, couples, the small things that turn out to be the whole thing.' },
+];
+---
+<Base title={title} description={description} footerHome={true}>
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow reveal">Services</div>
+      <h1 class="reveal">What I shoot.</h1>
+      <p class="lead reveal">Three lanes, one approach. Bring the vision, I handle the execution. Every booking locks with a deposit and gets the same care no matter the size.</p>
+    </div>
+    <div class="svc-grid">
+      {services.map((s) => (
+        <div class="svc reveal">
+          <div class="k">{s.k}</div>
+          <h3>{s.h}</h3>
+          <p>{s.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="cta-band" id="inquire">
+    <div class="reveal">
+      <h2>Got A Vision? Let&rsquo;s Execute It.</h2>
+      <p>Book a session. Deposit to lock the date.</p>
+      <a class="btn" href="/contact">Start An Inquiry</a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/portfolio.css';
+
+const title = 'Portfolio | Visionary Productions, NYC Photographer';
+const description =
+  'The work of Kai, NYC editorial, event, lifestyle, and fashion photographer. Five years behind the lens. Pick a lane and open the set.';
+---
+<Base title={title} description={description} activeNav="work" footerHome={true}>
+  <section class="story">
+    <div class="eyebrow reveal">Portfolio / The Story</div>
+    <h1 class="reveal">Five years behind the lens.</h1>
+    <p class="lead reveal">Visionary Productions is Kai. A New York photographer who shoots the vision people carry and gets it out of their head into something they can hold.</p>
+    <div class="body">
+      <p class="reveal">It started because the camera gave me a confidence I could not find anywhere else. The only thing better than feeling that was handing it to someone else. Five years in, that is still the whole job.</p>
+      <p class="reveal">A vision is one thing. Execution is another. Same style every time, on purpose. The camera is the excuse to bring the community together, and the work is making sure nobody leaves looking like anybody else.</p>
+    </div>
+    <div class="pull reveal">Everybody&rsquo;s got a vision. I&rsquo;m the one who executes it.</div>
+    <div class="story-img reveal"><div class="ph"></div><div class="ig"></div></div>
+  </section>
+
+  <section class="cats" id="cats">
+    <div class="cats-head">
+      <h2 class="reveal">The work, by category.</h2>
+      <p class="reveal">Pick a lane. Each set opens its own gallery.</p>
+    </div>
+    <div class="cat-grid">
+      <a class="cat c1 reveal" href="/portfolio/editorial">
+        <div class="ph"></div><div class="scrim"></div>
+        <div class="meta"><div class="t">Editorial</div><div class="d">Portraits and stories, shot with intention.</div><div class="v">View the set &rarr;</div></div>
+      </a>
+      <a class="cat c2 reveal" href="/portfolio/events">
+        <div class="ph"></div><div class="scrim"></div>
+        <div class="meta"><div class="t">Events</div><div class="d">The night, the room, the people, kept.</div><div class="v">View the set &rarr;</div></div>
+      </a>
+      <a class="cat c3 reveal" href="/portfolio/lifestyle">
+        <div class="ph"></div><div class="scrim"></div>
+        <div class="meta"><div class="t">Lifestyle</div><div class="d">Real moments, golden hour, the everyday made to matter.</div><div class="v">View the set &rarr;</div></div>
+      </a>
+      <a class="cat c4 reveal" href="/portfolio/fashion">
+        <div class="ph"></div><div class="scrim"></div>
+        <div class="meta"><div class="t">Fashion</div><div class="d">The look, the brand, the statement.</div><div class="v">View the set &rarr;</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="cta-band" id="inquire">
+    <div class="reveal">
+      <h2>See one you feel? Let&rsquo;s shoot.</h2>
+      <p>Book a session. Deposit to lock the date.</p>
+      <a class="btn" href="/contact">Start An Inquiry</a>
+    </div>
+  </section>
+</Base>

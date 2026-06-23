@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/home.css';
+
+const title = 'Visionary Productions | NYC Editorial, Event & Lifestyle Photographer';
+const description =
+  'Visionary Productions is Kai, a New York City editorial, event, and lifestyle photographer. Executing visions by the day. View the portfolio.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': 'https://visionaryproductions.nyc/#business',
+  name: 'Visionary Productions',
+  description:
+    'NYC editorial, event, and lifestyle photography by Kai. Executing visions by the day.',
+  image: 'https://visionaryproductions.nyc/images/home-00-942c288a.jpg',
+  url: 'https://visionaryproductions.nyc',
+  areaServed: 'New York City',
+  address: { '@type': 'PostalAddress', addressLocality: 'New York', addressRegion: 'NY', addressCountry: 'US' },
+  sameAs: ['https://instagram.com/kai_photoproductions'],
+};
+---
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <!-- Vision intro. Two midnight lids part like an eye opening. Runs once per
+       session, tap to skip, compressed on mobile. -->
+  <div id="intro">
+    <div class="lid top"></div>
+    <div class="lid bottom"></div>
+    <div class="word">Open your vision</div>
+    <button class="skip" type="button" aria-label="Skip intro">Tap to skip</button>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="hero-img" id="heroImg"></div>
+    <div class="hero-grain"></div>
+    <div class="eyebrow reveal">New York City / Editorial &middot; Event &middot; Lifestyle</div>
+    <h1 class="reveal">Executing Visions By The Day</h1>
+    <p class="vline reveal">A vision is one thing. Execution is another. I bring both.</p>
+    <div class="cta-row reveal"><a class="btn btn-primary" href="#work">Portfolio</a></div>
+  </header>
+
+  <section class="sec" id="work">
+    <div class="archive-head">
+      <h2 class="reveal">Community Archive</h2>
+      <p class="reveal">The people and the scene. Each set opens its own story.</p>
+    </div>
+    <div class="archive">
+      <a class="shot a1 reveal" href="/portfolio">
+        <div class="ph"></div><div class="scrim"></div>
+        <div class="meta"><div class="t">The Block</div><div class="c">Editorial / The Crew</div><div class="enter">Enter the set &rarr;</div></div>
+      </a>
+      <a class="shot a2 reveal" href="/portfolio">
+        <div class="ph"></div><div class="scrim"></div>
+        <div class="meta"><div class="t">Stoop Session</div><div class="c">Lifestyle / The Steps</div><div class="enter">Enter the set &rarr;</div></div>
+      </a>
+      <a class="shot a3 reveal" href="/portfolio">
+        <div class="ph"></div><div class="scrim"></div>
+        <div class="meta"><div class="t">88</div><div class="c">In Red</div><div class="enter">Enter &rarr;</div></div>
+      </a>
+      <a class="shot a4 reveal" href="/portfolio">
+        <div class="ph"></div><div class="scrim"></div>
+        <div class="meta"><div class="t">Golden Hour</div><div class="c">The Scene</div><div class="enter">Enter &rarr;</div></div>
+      </a>
+    </div>
+    <div class="archive-cta reveal"><a class="link-underline" href="/portfolio">View The Full Portfolio &rarr;</a></div>
+  </section>
+
+  <section class="cta-band" id="inquire">
+    <div class="reveal">
+      <h2>Got A Vision? Let&rsquo;s Execute It.</h2>
+      <p>Book a session. Deposit to lock the date.</p>
+      <a class="btn" href="/contact">Start An Inquiry</a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/content.css';
+
+// Private client galleries. Hidden and unlinked for v1: the route and gate
+// exist, but real passphrase verification, favorite/select, and high res
+// download land in a later phase (build brief section 7, item 8). For now any
+// slug renders the gate so the structure is in place without exposing work.
+export function getStaticPaths() {
+  return [{ params: { slug: 'sample' } }];
+}
+const { slug } = Astro.params;
+
+const title = 'Client Gallery | Visionary Productions';
+const description = 'Private client gallery.';
+---
+<Base title={title} description={description} footerHome={true}>
+  <section class="page">
+    <div class="gate">
+      <div class="page-head">
+        <div class="eyebrow reveal" style="justify-content:center">Private</div>
+        <h1 class="reveal" style="font-size:clamp(30px,5vw,52px)">Client gallery</h1>
+        <p class="lead reveal">This set is private. Enter the passphrase Kai sent you.</p>
+      </div>
+      <form class="reveal" onsubmit="event.preventDefault();document.getElementById('gateMsg').textContent='Galleries open soon. Reach Kai if you need yours now.';">
+        <div class="field">
+          <label for="pass">Passphrase</label>
+          <input id="pass" name="pass" type="password" autocomplete="off" />
+        </div>
+        <button class="btn btn-accent" type="submit" style="width:100%">Open Gallery</button>
+        <div class="form-status" id="gateMsg" role="status" aria-live="polite"></div>
+      </form>
+      <p class="price-note">Gallery: {slug}. Favorite, select, and high res download arrive in a later phase.</p>
+    </div>
+  </section>
+</Base>

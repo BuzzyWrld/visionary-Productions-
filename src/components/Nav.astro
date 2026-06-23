@@ -1,0 +1,28 @@
+---
+import Logo from './Logo.astro';
+
+// `active` highlights the current section in the nav. Pass one of the keys.
+interface Props {
+  active?: 'work' | 'services' | 'pricing' | null;
+}
+const { active = null } = Astro.props;
+
+const links = [
+  { key: 'work', label: 'Work', href: '/portfolio' },
+  { key: 'services', label: 'Services', href: '/services' },
+  { key: 'pricing', label: 'Pricing', href: '/pricing' },
+] as const;
+---
+<nav class="nav">
+  <a class="brand" href="/" aria-label="Visionary Productions home">
+    <Logo size={40} />
+    <span><div class="wm">VISIONARY</div><div class="sub">PRODUCTIONS</div></span>
+  </a>
+  <div class="navlinks">
+    {links.map((l) => (
+      <a class={active === l.key ? 'active' : undefined} href={l.href}>{l.label}</a>
+    ))}
+    <a class="inquire" href="/contact">Inquire</a>
+    <button class="toggle" id="themeToggle" aria-label="Toggle light or dark">&#9681;</button>
+  </div>
+</nav>

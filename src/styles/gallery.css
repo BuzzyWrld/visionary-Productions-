@@ -1,0 +1,30 @@
+/* Project / set gallery. Vertical full bleed scroll, caption fades in on
+   hover, every set ends with an inquiry CTA so a gallery is never a dead end. */
+
+.gallery-head { padding: clamp(120px, 16vh, 200px) clamp(20px, 5vw, 64px) clamp(20px, 4vh, 50px); max-width: 1100px; margin: 0 auto; }
+.gallery-head .eyebrow { justify-content: flex-start; }
+.gallery-head h1 { font-family: var(--font-d); font-weight: 600; font-size: clamp(34px, 6vw, 72px); line-height: 1.02; letter-spacing: -.02em; }
+.gallery-head .crumb { font-family: var(--font-m); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+.gallery-head .crumb a { color: var(--accent); text-decoration: none; }
+
+.gallery { max-width: 1100px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px) clamp(40px, 7vh, 80px); display: flex; flex-direction: column; gap: clamp(16px, 3vh, 40px); }
+.frame { position: relative; overflow: hidden; border-radius: 12px; }
+.frame img { display: block; width: 100%; height: auto; }
+.frame .cap {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 22px 24px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #FAF7F1;
+  background: linear-gradient(180deg, transparent, rgba(14, 17, 23, .72));
+  opacity: 0;
+  transition: opacity .4s;
+}
+.frame:hover .cap { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .frame .cap { transition: none; }
+}

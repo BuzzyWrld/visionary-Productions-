@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/content.css';
+
+const title = 'Pricing | Visionary Productions, NYC Photographer';
+const description =
+  'Session pricing for Visionary Productions. Vision Session, Brand Day, and Event Coverage. Deposit to lock the date. NYC photographer Kai.';
+
+// PRICES ARE PLACEHOLDERS. Confirm the real numbers with Kai before publishing
+// (build brief section 6 + 14). Structure is correct, values are pending.
+const tiers = [
+  {
+    k: 'The Portrait', h: 'Vision Session', price: 'From $—', unit: 'per session', feature: false,
+    points: ['One to two hours, one look or location', 'Direction the whole way, you will not feel stiff', 'Curated, color graded gallery', 'Personal use license'],
+  },
+  {
+    k: 'The Brand', h: 'Brand Day', price: 'From $—', unit: 'per day', feature: true,
+    points: ['Half or full day, multiple looks', 'Built for brands, lookbooks, and editorial', 'Larger curated, graded gallery', 'Commercial use license', 'Same style, start to finish'],
+  },
+  {
+    k: 'The Night', h: 'Event Coverage', price: 'From $—', unit: 'per event', feature: false,
+    points: ['Hourly, the full room covered', 'Fast turnaround on a teaser set', 'Full graded gallery after', 'Add hours as the night runs'],
+  },
+];
+---
+<Base title={title} description={description} footerHome={true}>
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow reveal">Pricing</div>
+      <h1 class="reveal">Straight, no games.</h1>
+      <p class="lead reveal">Pick the lane that fits. A deposit locks your date and comes off the total. The work is the same whether the room is big or small.</p>
+    </div>
+    <div class="tiers">
+      {tiers.map((t) => (
+        <div class={t.feature ? 'tier feature reveal' : 'tier reveal'}>
+          <div class="k">{t.k}</div>
+          <h3>{t.h}</h3>
+          <div class="price">{t.price} <span>{t.unit}</span></div>
+          <ul>{t.points.map((p) => <li>{p}</li>)}</ul>
+          <a class="btn btn-accent" href="/contact">Start An Inquiry</a>
+        </div>
+      ))}
+    </div>
+    <div class="price-note reveal">
+      Deposit to book, balance due on the day. No discounts, the rate is the rate.
+      Travel outside NYC quoted per job. Final numbers confirmed on inquiry.
+    </div>
+  </section>
+
+  <section class="cta-band" id="inquire">
+    <div class="reveal">
+      <h2>Ready to lock a date?</h2>
+      <p>Send the vision. I will send the quote and the deposit link.</p>
+      <a class="btn" href="/contact">Start An Inquiry</a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,11 @@
+---
+// Fade up on scroll wrapper. Adds the `reveal` class the motion script picks
+// up. `as` lets you choose the element, default div. Extra classes pass through.
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  class?: string;
+}
+const { as: Tag = 'div', class: className } = Astro.props;
+const classes = ['reveal', className].filter(Boolean).join(' ');
+---
+<Tag class={classes}><slot /></Tag>

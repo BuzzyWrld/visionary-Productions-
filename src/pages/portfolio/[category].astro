@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import { categories, getCategory } from '../../data/portfolio.ts';
+import '../../styles/portfolio.css';
+
+export function getStaticPaths() {
+  return categories.map((c) => ({ params: { category: c.slug } }));
+}
+
+const { category: slug } = Astro.params;
+const category = getCategory(slug!);
+if (!category) return Astro.redirect('/portfolio');
+
+const title = `${category.title} | Visionary Productions, NYC Photographer`;
+const description = `${category.title} photography by Kai. ${category.blurb} View the sets.`;
+---
+<Base title={title} description={description} activeNav="work" footerHome={true}>
+  <section class="cats" style="padding-top:clamp(120px,16vh,200px)">
+    <div class="cats-head">
+      <div class="eyebrow reveal" style="justify-content:center">Portfolio / {category.title}</div>
+      <h2 class="reveal">{category.title}</h2>
+      <p class="reveal">{category.blurb}</p>
+    </div>
+    <div class="cat-grid">
+      {category.sets.map((set, i) => (
+        <a class={`cat c${(i % 4) + 1} reveal`} href={`/portfolio/${category.slug}/${set.slug}`}>
+          <div class="ph" style={`background-image:url('${set.cover}')`}></div>
+          <div class="scrim"></div>
+          <div class="meta">
+            <div class="t">{set.title}</div>
+            <div class="d">{set.caption}</div>
+            <div class="v">View the set &rarr;</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="cta-band" id="inquire">
+    <div class="reveal">
+      <h2>See one you feel? Let&rsquo;s shoot.</h2>
+      <p>Book a session. Deposit to lock the date.</p>
+      <a class="btn" href="/contact">Start An Inquiry</a>
+    </div>
+  </section>
+</Base>

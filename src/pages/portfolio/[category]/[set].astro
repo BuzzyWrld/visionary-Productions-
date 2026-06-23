@@ -1,0 +1,46 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { categories, getSet } from '../../../data/portfolio.ts';
+import '../../../styles/portfolio.css';
+import '../../../styles/gallery.css';
+
+export function getStaticPaths() {
+  return categories.flatMap((c) =>
+    c.sets.map((s) => ({ params: { category: c.slug, set: s.slug } })),
+  );
+}
+
+const { category: catSlug, set: setSlug } = Astro.params;
+const found = getSet(catSlug!, setSlug!);
+if (!found) return Astro.redirect('/portfolio');
+const { category, set } = found;
+
+const title = `${set.title} | ${category.title} | Visionary Productions`;
+const description = `${set.title}. ${set.caption}. NYC ${category.title.toLowerCase()} photography by Kai, Visionary Productions.`;
+---
+<Base title={title} description={description} image={set.cover} activeNav="work" footerHome={true}>
+  <section class="gallery-head">
+    <div class="eyebrow reveal">{category.title} / The Set</div>
+    <h1 class="reveal">{set.title}</h1>
+    <div class="crumb reveal">
+      <a href="/portfolio">Portfolio</a> / <a href={`/portfolio/${category.slug}`}>{category.title}</a> / {set.title}
+    </div>
+  </section>
+
+  <div class="gallery">
+    {set.images.map((img, i) => (
+      <figure class="frame reveal">
+        <img src={img.src} alt={img.alt} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+        <figcaption class="cap">{set.title} &middot; {String(i + 1).padStart(2, '0')}</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <section class="cta-band" id="inquire">
+    <div class="reveal">
+      <h2>Want this for yours? Let&rsquo;s shoot.</h2>
+      <p>Book a session. Deposit to lock the date.</p>
+      <a class="btn" href="/contact">Start An Inquiry</a>
+    </div>
+  </section>
+</Base>

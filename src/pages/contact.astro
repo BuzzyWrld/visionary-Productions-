@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/content.css';
+
+const title = 'Contact | Visionary Productions, NYC Photographer';
+const description =
+  'Start an inquiry with Kai. Tell me the vision, book a time, lock the date with a deposit. NYC editorial, event, and lifestyle photographer.';
+
+const calendly = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
+const beehiiv = import.meta.env.PUBLIC_BEEHIIV_EMBED ?? '';
+const deposit = import.meta.env.PUBLIC_STRIPE_DEPOSIT_URL ?? '';
+---
+<Base title={title} description={description} footerHome={true}>
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow reveal">Inquire</div>
+      <h1 class="reveal">Tell me the vision.</h1>
+      <p class="lead reveal">Give me the shape of it. I will come back with a quote, the date, and a deposit link to lock it in.</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Left: the inquiry form, posts to Airtable via /api/contact -->
+      <div>
+        <form id="inquiryForm" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="date">Date in mind</label>
+            <input id="date" name="date" type="date" />
+          </div>
+          <div class="field">
+            <label for="idea">Shoot idea</label>
+            <input id="idea" name="idea" type="text" placeholder="Editorial, event, lifestyle, fashion" />
+          </div>
+          <div class="field">
+            <label for="message">The vision</label>
+            <textarea id="message" name="message" placeholder="What are we making?" required></textarea>
+          </div>
+          <!-- Honeypot. Real people leave this empty. -->
+          <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+          <button class="btn btn-accent" type="submit">Send The Inquiry</button>
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <!-- Right: book, deposit, subscribe -->
+      <div>
+        <div class="block">
+          <h2 class="sub-h">Book a time</h2>
+          <p class="sub-p">Rather just grab a slot? Pick a time and we will talk it through.</p>
+          {calendly
+            ? <div class="embed"><iframe src={calendly} height="630" title="Book a session with Visionary Productions" loading="lazy"></iframe></div>
+            : <p class="sub-p"><em>Calendly link goes here. Set PUBLIC_CALENDLY_URL.</em></p>}
+        </div>
+
+        <div class="block">
+          <h2 class="sub-h">Lock the date</h2>
+          <p class="sub-p">Once we have agreed the shoot, a deposit holds your date. It comes off the total.</p>
+          {deposit
+            ? <a class="btn btn-accent" href={deposit}>Pay The Deposit</a>
+            : <p class="sub-p"><em>Stripe deposit link goes here. Set PUBLIC_STRIPE_DEPOSIT_URL.</em></p>}
+        </div>
+
+        <div class="block">
+          <h2 class="sub-h">Stay close</h2>
+          <p class="sub-p">New work, drops, and the occasional behind the scenes.</p>
+          {beehiiv
+            ? <div class="embed"><iframe src={beehiiv} height="120" title="Subscribe to the Visionary Productions newsletter" loading="lazy"></iframe></div>
+            : <p class="sub-p"><em>Beehiiv embed goes here. Set PUBLIC_BEEHIIV_EMBED.</em></p>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('inquiryForm') as HTMLFormElement | null;
+    const status = document.getElementById('formStatus');
+    if (form && status) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.className = 'form-status';
+        status.textContent = 'Sending...';
+        const data = Object.fromEntries(new FormData(form).entries());
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          const json = await res.json().catch(() => ({}));
+          if (res.ok) {
+            status.className = 'form-status ok';
+            status.textContent = "Got it. I will be in touch soon.";
+            form.reset();
+          } else {
+            status.className = 'form-status err';
+            status.textContent = json?.error ?? 'Something went wrong. Try again or DM @kai_photoproductions.';
+          }
+        } catch {
+          status.className = 'form-status err';
+          status.textContent = 'Network error. Try again or DM @kai_photoproductions.';
+        }
+      });
+    }
+  </script>
+</Base>

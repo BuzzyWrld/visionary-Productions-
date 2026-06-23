@@ -1,0 +1,22 @@
+---
+// Community line, IG, location, copyright. The right column link changes per
+// page via the `homeLink` prop (true shows Home, false shows Inquire).
+interface Props {
+  homeLink?: boolean;
+}
+const { homeLink = false } = Astro.props;
+---
+<footer>
+  <div class="foot-top">
+    <div class="foot-line reveal">Keep creating visions for the community.</div>
+    <div class="foot-links reveal">
+      <a href="https://instagram.com/kai_photoproductions">@kai_photoproductions</a><br />
+      NEW YORK CITY<br />
+      {homeLink ? <a href="/">Home</a> : <a href="/contact">Inquire</a>}
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>Visionary Productions</span>
+    <span>Executing visions by the day</span>
+  </div>
+</footer>

@@ -1,0 +1,127 @@
+/* Visionary Productions design tokens.
+   Light is the default. Dark wins via prefers-color-scheme, and a manual
+   data-theme on <html> overrides the system in either direction.
+   No purple, ever. No pure #000. Grain shows on dark fields only. */
+:root {
+  --blue: #2456B8;
+  --blue-lt: #6E9BF2;
+  --gold: #C9772E;
+  --gold-lt: #E0934A;
+  --ink: #14181F;
+  --paper: #FAF7F1;
+  --fog: #ECE7DD;
+  --slate: #5B6675;
+  --midnight: #0E1117;
+  --surf-d: #171D27;
+  --ww: #F4F1EA;
+  --mist: #98A2B2;
+
+  --bg: var(--paper);
+  --surface: #FFFFFF;
+  --text: var(--ink);
+  --muted: var(--slate);
+  --accent: var(--blue);
+  --warm: var(--gold);
+  --line: rgba(20, 24, 31, .12);
+  --grain-display: none;
+
+  --font-d: 'Fraunces', serif;
+  --font-b: 'Work Sans', sans-serif;
+  --font-m: 'Space Mono', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--midnight);
+    --surface: var(--surf-d);
+    --text: var(--ww);
+    --muted: var(--mist);
+    --accent: var(--blue-lt);
+    --warm: var(--gold-lt);
+    --line: rgba(244, 241, 234, .12);
+    --grain-display: block;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: var(--midnight);
+  --surface: var(--surf-d);
+  --text: var(--ww);
+  --muted: var(--mist);
+  --accent: var(--blue-lt);
+  --warm: var(--gold-lt);
+  --line: rgba(244, 241, 234, .12);
+  --grain-display: block;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s, color .4s;
+  overflow-x: hidden;
+}
+
+a, button { cursor: pointer; }
+
+/* Fixed grain overlay. Driven by the #vgrain SVG filter in Grain.astro. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  display: var(--grain-display);
+  filter: url(#vgrain);
+  opacity: .42;
+  mix-blend-mode: overlay;
+}
+
+/* Vision intro. Two midnight lids part from a center slit like an eye opening. */
+#intro { position: fixed; inset: 0; z-index: 9500; pointer-events: none; }
+#intro .lid { position: absolute; left: 0; right: 0; height: 50.6svh; background: var(--midnight); }
+#intro .lid.top { top: 0; }
+#intro .lid.bottom { bottom: 0; }
+#intro .word {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-m);
+  font-size: 12px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+  opacity: 0;
+}
+#intro .skip {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-m);
+  font-size: 9px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--mist);
+  background: none;
+  border: 1px solid rgba(152, 162, 178, .35);
+  border-radius: 30px;
+  padding: 7px 16px;
+  opacity: 0;
+  pointer-events: auto;
+}
+
+/* Reveal base. Elements start hidden and fade up on scroll via GSAP.
+   With reduced motion or JS off they stay visible. */
+.reveal { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; }
+}
+
+/* Progressive enhancement. If JS never runs, do not leave content hidden. */
+.no-js .reveal { opacity: 1; }
