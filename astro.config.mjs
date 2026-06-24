@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://visionaryproductions.nyc',
   output: 'static',
-  adapter: vercel({ webAnalytics: { enabled: true } }),
+  adapter: vercel(),
   integrations: [sitemap()],
   // Services and pricing live on one page. Keep the old path working.
   redirects: {

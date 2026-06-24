@@ -1,7 +1,7 @@
 /* Portfolio page. The brand story first, then the four category covers.
    Ported from Visionary_Site_02_Portfolio. */
 
-.story { padding: clamp(120px, 16vh, 200px) clamp(20px, 5vw, 64px) clamp(40px, 7vh, 80px); max-width: 1100px; margin: 0 auto; }
+.story { padding: clamp(96px, 14vh, 190px) clamp(20px, 5vw, 64px) clamp(28px, 4vh, 56px); max-width: 1100px; margin: 0 auto; }
 .eyebrow {
   font-family: var(--font-m);
   font-size: 11px;
@@ -56,7 +56,7 @@
 @media (max-width: 760px) { .story .body { grid-template-columns: 1fr; } }
 
 /* Categories */
-.cats { padding: clamp(70px, 11vh, 140px) clamp(20px, 5vw, 64px); max-width: 1320px; margin: 0 auto; }
+.cats { padding: clamp(44px, 7vh, 96px) clamp(20px, 5vw, 64px); max-width: 1320px; margin: 0 auto; }
 .cats-head { text-align: center; margin-bottom: clamp(40px, 7vh, 70px); }
 .cats-head h2 { font-family: var(--font-d); font-weight: 600; font-size: clamp(32px, 5.5vw, 68px); line-height: 1.02; letter-spacing: -.02em; }
 .cats-head p { color: var(--muted); font-size: clamp(14px, 1.5vw, 18px); margin-top: 14px; }
@@ -90,12 +90,23 @@
   transition: opacity .45s, transform .45s;
 }
 .cat:hover .meta .v { opacity: 1; transform: translateY(0); }
-.cat.c1 .ph { background-image: url('/images/portfolio-01-94cdf5aa.jpg'); background-position: center 34%; }
-.cat.c2 .ph { background-image: url('/images/portfolio-02-c3791f90.jpg'); background-position: center 28%; }
-.cat.c3 .ph { background-image: url('/images/portfolio-03-94cdf5aa.jpg'); background-position: 24% 62%; }
-.cat.c4 .ph { background-image: url('/images/portfolio-04-c3791f90.jpg'); background-position: 76% 40%; }
+/* Placeholder crops spread across the three stand-in photos so the four covers
+   read as distinct. Replaced per category when Kai's real covers land. */
+.cat.c1 .ph { background-image: url('/images/portfolio-00-942c288a.jpg'); background-position: center 24%; }
+.cat.c2 .ph { background-image: url('/images/portfolio-02-c3791f90.jpg'); background-position: center 32%; }
+.cat.c3 .ph { background-image: url('/images/portfolio-01-94cdf5aa.jpg'); background-position: 28% 58%; }
+.cat.c4 .ph { background-image: url('/images/portfolio-00-942c288a.jpg'); background-position: 80% 64%; }
 @media (max-width: 980px) { .cat-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px) { .cat-grid { grid-template-columns: 1fr; } }
+/* Phones keep a clean 2 by 2 gallery grid instead of one tall stack. Drop the
+   description so the small tiles read as covers, not text blocks. */
+@media (max-width: 600px) {
+  .cat-grid { gap: 10px; }
+  .cat { aspect-ratio: 4/5; }
+  .cat .meta { padding: 14px; }
+  .cat .meta .t { font-size: 18px; }
+  .cat .meta .d { display: none; }
+  .cat .meta .v { font-size: 9px; margin-top: 8px; }
+}
 
 .cats + .cta-band, .cta-band { margin-top: clamp(40px, 7vh, 80px); }
 
