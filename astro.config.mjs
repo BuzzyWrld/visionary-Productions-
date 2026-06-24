@@ -1,17 +1,21 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
-// Static first, hosted on Railway as a Node server. The standalone Node adapter
-// builds an HTTP server (dist/server/entry.mjs) that serves the prerendered
-// pages and runs the one on demand route (the contact endpoint).
+// One repo, two hosts. Vercel sets the VERCEL env var during its build, so we
+// use the Vercel adapter there (serverless output) and the Node standalone
+// adapter everywhere else (Railway, local). Output stays static: only the
+// contact endpoint renders on demand.
+const onVercel = !!process.env.VERCEL;
+
 export default defineConfig({
   site: 'https://visionaryproductions.nyc',
   output: 'static',
-  adapter: node({ mode: 'standalone' }),
+  adapter: onVercel ? vercel() : node({ mode: 'standalone' }),
   integrations: [sitemap()],
-  // Services and pricing now live on one page. Keep the old path working.
+  // Services and pricing live on one page. Keep the old path working.
   redirects: {
     '/pricing': '/services',
   },
